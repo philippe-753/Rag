@@ -11,21 +11,21 @@ load_dotenv()
 
 SYSTEM_MESSAGE = "You are a helpful assistant and expert on AI safety. You will be given a question and your task is to answer it using the informaiton that you know about AI safety perticular."
 
-def initial_message():
+def initial_message() -> None:
     print("I am a helpful assistant and expert on AI safety.")
     print("Please enter a question (type 'exit' to quit):")
     
-def set_up_model(model_name):
+def set_up_model(model_name:str) -> ChatOpenAI:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise ValueError("OPENAI_API_KEY not found in environment variables.")
     return ChatOpenAI(openai_api_key=api_key, model=model_name)
 
-def ask_model(chat, prompt, messages=None):
+def ask_model(chat:ChatOpenAI, prompt:str, messages:list[str]):
     messages.append(HumanMessage(content=prompt))
     return chat.invoke(messages)
 
-def update_chat(AI_response, messages):
+def update_chat(AI_response:str, messages:list[str]) -> list[str]:
     messages.append(AIMessage(content=AI_response))
     return messages
 
