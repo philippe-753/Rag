@@ -6,3 +6,6 @@ datasets==3.5.0
 unstructured[all-docs]
 dfminer.six
 faiss-cpu
+uvicorn
+python-dotenv
+openai

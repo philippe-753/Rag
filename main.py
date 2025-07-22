@@ -80,7 +80,7 @@ def main() -> None:
         if query.lower() in {"exit", "exit()"}:
             break
 
-        context: str = retrieve_context(query, messages)
+        context: str = ""#retrieve_context(query, messages)
         res: AIMessage = ask_model(chat, query, context, messages)
         print(f"Answer: {res.content}\n")
 
