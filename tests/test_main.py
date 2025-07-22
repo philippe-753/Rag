@@ -51,9 +51,10 @@ def test_trim_messages():
     messages = [SystemMessage(content="System")]
     messages += [HumanMessage(content=f"Q{i}") for i in range(10)]
     trimmed = trim_messages(messages, 5)
-    
+
     assert len(trimmed) == 5
     assert isinstance(trimmed[0], SystemMessage)
+
 
 def test_update_chat_trims():
     # Test with mode that 10 chats.
