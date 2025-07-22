@@ -8,8 +8,7 @@ from langchain.text_splitter import TokenTextSplitter
 
 load_dotenv()
 
-
-SYSTEM_MESSAGE = (
+SYSTEM_MESSAGE: str = (
     "You are a helpful assistant and expert on AI safety. "
     "Use ONLY the provided context to answer the question. "
     "If the context is not relevant or missing, respond with 'I don't know'."
@@ -18,6 +17,7 @@ SYSTEM_MESSAGE = (
 # Load FAISS vector store
 embeddings = OpenAIEmbeddings()
 vector_store = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+
 
 def retrieve_context(query: str, messages: list, k: int = 10, max_tokens: int = 1500) -> str:
     # Build a synthetic query using recent history
@@ -32,12 +32,8 @@ def retrieve_context(query: str, messages: list, k: int = 10, max_tokens: int = 
         for doc in docs
         ])
     
-    # print("context:", context)
-    # Truncate context
     splitter = TokenTextSplitter(chunk_size=max_tokens, chunk_overlap=0)
     chunks = splitter.split_text(context)
-    # print("type(chunks):", type(chunks))
-    # print("chunks:", chunks)
     return chunks[0] if chunks else ""
 
 def initial_message() -> None:
@@ -68,21 +64,21 @@ def trim_messages(messages, num_messages: int) -> list[str]:
     return [messages[0]] + messages[-(num_messages-1):]
 
 def main():
-    model_name = "gpt-3.5-turbo-0125"
-    chat = set_up_model(model_name)
+    model_name  = "gpt-3.5-turbo-0125"
+    chat: ChatOpenAI = set_up_model(model_name)
     initial_message() 
-    messages = [SystemMessage(content=SYSTEM_MESSAGE)]
+    messages:list = [SystemMessage(content=SYSTEM_MESSAGE)]
 
     while True:
-        query = input(">> ")
+        query: str = input(">> ")
         if query.lower() == "exit" or query.lower() == "exit()":
             break
         
-        context = retrieve_context(query, messages)
-        res = ask_model(chat, query, context, messages)
+        context: str = retrieve_context(query, messages)
+        res: AIMessage = ask_model(chat, query, context, messages)
         print(f"Anwer:{res.content}\n")
 
-        messages = update_chat(AI_response=res.content, messages=messages)
+        messages:list = update_chat(AI_response=res.content, messages=messages)
 
 if __name__ == "__main__":
     main()

@@ -43,7 +43,7 @@ for file_name in tqdm(os.listdir(pdf_folder)):
     text = extract_text_from_pdf(path)
 
     if len(text.strip()) < 100:
-        print(f"⚠️ Skipping {file_name}: too little extractable text.")
+        print(f"Skipping {file_name}: too little extractable text.")
         continue
 
     chunks = splitter.split_text(text)
@@ -70,4 +70,4 @@ if index is not None:
     index.save_local("faiss_index")
     print("✅ FAISS corpus built and saved.")
 else:
-    print("⚠️ No valid documents were embedded. Index not saved.")
+    print("No valid documents were embedded. Index not saved.")
