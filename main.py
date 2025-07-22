@@ -58,10 +58,10 @@ def ask_model(chat: ChatOpenAI, query: str, context: str, messages: List[BaseMes
     return chat.invoke(messages)
 
 
-def update_chat(AI_response: str, messages: List[BaseMessage]) -> List[BaseMessage]:
+def update_chat(AI_response: str, messages: List[BaseMessage], max_messages: int = 10) -> List[BaseMessage]:
     messages.append(AIMessage(content=AI_response))
-    if len(messages) > 10:
-        messages = trim_messages(messages, 10)
+    if len(messages) > max_messages:
+        messages = trim_messages(messages, max_messages)
     return messages
 
 
