@@ -22,7 +22,7 @@ app.add_middleware(
 # Serve index.html
 @app.get("/", response_class=HTMLResponse)
 def get_home():
-    return Path("index.html").read_text()
+    return Path("static/index.html").read_text()
 
 # Load RAG model
 chat = set_up_model("gpt-3.5-turbo-0125")
