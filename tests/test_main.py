@@ -59,6 +59,6 @@ def test_update_chat_trims():
     messages = [SystemMessage(content="System")]
     for i in range(10):
         messages.append(HumanMessage(content=f"Q{i}"))
-    updated = update_chat("Test", messages, 10)
-    assert len(updated) == 10
+    updated = update_chat("Test", messages, 5)
+    assert len(updated) == 5
     assert isinstance(updated[-1], AIMessage)
