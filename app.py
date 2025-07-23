@@ -6,7 +6,8 @@ from pydantic import BaseModel
 from main import set_up_model, retrieve_context, ask_model, update_chat, SYSTEM_MESSAGE
 from langchain.schema import SystemMessage, AIMessage
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -19,10 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Serve index.html
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=FileResponse)
 def get_home():
-    return Path("static/index.html").read_text()
+    return FileResponse(os.path.join("static", "index.html"))
 
 # Load RAG model
 chat = set_up_model("gpt-3.5-turbo-0125")
