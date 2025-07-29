@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="images/featured.png" alt="RAG Chatbot" style="width:70%; height:auto;" />
+  <img src="images/featured.png" alt="RAG Chatbot" width="600"/>
 </p>
 
 # 🔍 RAG Chatbot: Retrieval-Augmented Generation on AI Safety Papers
@@ -31,7 +31,7 @@ A hands-on implementation of a **RAG-based chatbot** that leverages **OpenAI**, 
 
 - ✅ **PDF ingestion** using `PyMuPDF`
 - ✅ **Semantic search** with `FAISS` and `OpenAIEmbeddings`
-- ✅ **Context-aware Q&A** via `LangChain` and OpenAI`s LLM
+- ✅ **Context-aware Q&A** via `LangChain` and OpenAI's LLM
 - ✅ **FastAPI** backend to serve responses
 - ✅ Minimal **frontend** with a static HTML chat interface
 - ✅ **Pytest**-based testing suite for core logic
@@ -46,7 +46,7 @@ A hands-on implementation of a **RAG-based chatbot** that leverages **OpenAI**, 
 pip install -r requirements.txt
 ```
 
-Make sure you`re using **Python 3.10+**.
+Make sure you're using **Python 3.10+**.
 
 ---
 
@@ -67,43 +67,45 @@ load_dotenv()
 
 > 🔐 **Important:** Never hardcode your API key or commit your `.env` file. Add it to your `.gitignore`.
 
+
 ---
 
-### 3. Build the FAISS Index
+## 🧭 Running the Project
+
+### ▶️ Run in Terminal (Local CLI)
+
+```bash
+python main.py
+```
+
+This launches the chatbot interface in the terminal and allows direct Q&A with the indexed AI safety corpus.
+
+---
+
+### 🌐 Run on Web (FastAPI + Frontend)
+
+```bash
+python app.py
+```
+
+Then open your browser at:
+
+```
+http://localhost:8000
+```
+
+To use the chatbot with a web-based interface. You can also open `static/index.html` directly if not serving via FastAPI.
+
+---
+
+## Update CORPUS
+To update the AI safety CORPUS, add the new papers as pdfs inside pdfs/ and run
 
 ```bash
 python create_corpus.py
 ```
 
 This script extracts text from all PDFs in `pdfs/`, embeds the content, and saves the index to `faiss_index/`.
-
----
-
-### 4. Start the Chatbot (API Server)
-
-```bash
-python app.py
-```
-
-This will start the FastAPI server at [http://localhost:8000](http://localhost:8000)
-
----
-
-### 5. Chat in the Browser
-
-Open `static/index.html` in your browser to use the chatbot interface, or configure it to be served with the FastAPI app for deployment.
-
----
-
-## ✅ Testing
-
-Run the test suite using:
-
-```bash
-pytest
-```
-
----
 
 ## 🧠 Tech Stack
 
